@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 1. DOCUMENT METADATA -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Musaib Manzoor — Full-Stack & Creative Web Developer</title>
+<meta name="description" content="Musaib Manzoor is a Full-Stack Developer & Creative Web Developer from Baramulla, Jammu & Kashmir, with 6+ years of experience in React, Angular, D3.js, Node.js and databases.">
+<meta name="theme-color" content="#08090B">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Musaib Manzoor","jobTitle":"Full-Stack Developer & Creative Web Developer","email":"mailto:devmusaidmanzoor@gmail.com","telephone":"+91 6005339428","address":{"@type":"PostalAddress","addressLocality":"Baramulla","addressRegion":"Jammu & Kashmir","addressCountry":"IN"},"sameAs":["https://github.com/devmusa"]}</script>
+<!-- 2. FONTS (graceful fallbacks defined in tokens) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* 3. DESIGN TOKENS */
+:root{
+  --obsidian:#08090B; --charcoal:#111318; --ivory:#F5F1E8; --gold:#C6A76A; --grey:#92949B;
+  --line:rgba(255,255,255,.10);
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2.5rem; --s5:clamp(4rem,9vw,7.5rem);
+  --pad:max(1.25rem,env(safe-area-inset-left)); --nav-h:68px;
+}
+/* 4. GLOBAL */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--obsidian);color:var(--ivory);font:400 1rem/1.7 var(--sans);overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom)}
+img,svg{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{width:100%;max-width:1200px;margin-inline:auto;padding-inline:var(--pad)}
+section{padding-block:var(--s5)}
+.eyebrow{color:var(--gold);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:var(--s2)}
+.h2{font-family:var(--display);font-weight:300;font-size:clamp(2rem,6vw,3.6rem);line-height:1.1;letter-spacing:-.01em;max-width:18ch}
+.gold{color:var(--gold);font-style:italic}
+.lead{color:var(--grey);max-width:60ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:0 1.6rem;border-radius:999px;border:1px solid var(--line);font:600 .95rem var(--sans);color:var(--ivory);background:transparent;cursor:pointer;transition:transform .15s,background .25s,border-color .25s,color .25s}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:var(--gold);color:var(--obsidian);border-color:var(--gold)}
+.btn-gold:hover{background:#d6b97c}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+/* 5. NAVIGATION */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;height:var(--nav-h);padding-top:env(safe-area-inset-top);transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(8,9,11,.88);border-color:var(--line);backdrop-filter:blur(10px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:100%}
+.brand{display:flex;align-items:center;gap:.7rem;font-weight:600}
+.mono{font-family:var(--display);font-size:1.4rem;color:var(--gold)}
+.brand span.n{font-size:.9rem}
+.links{list-style:none;margin:0;padding:0;display:none;gap:1.6rem;align-items:center}
+.links a{font-size:.9rem;color:var(--grey);padding:.5rem 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.links a:hover,.links a.active{color:var(--ivory);border-color:var(--gold)}
+.menu-btn{width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ivory);cursor:pointer;display:grid;place-items:center}
+.menu-btn span{display:block;width:18px;height:1.5px;background:currentColor;position:relative;transition:background .2s}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:currentColor;transition:transform .25s}
+.menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
+.menu-btn[aria-expanded=true] span{background:transparent}
+.menu-btn[aria-expanded=true] span::before{transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded=true] span::after{transform:translateY(-6px) rotate(-45deg)}
+.drawer{position:fixed;inset:var(--nav-h) 0 0 0;background:var(--obsidian);z-index:49;padding:var(--s3) var(--pad);display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .3s,visibility .3s}
+.drawer.open{opacity:1;visibility:visible;transform:none}
+.drawer a.dl{font-family:var(--display);font-size:1.9rem;font-weight:300;padding:.8rem 0;border-bottom:1px solid var(--line);min-height:48px}
+.drawer .btn{margin-top:var(--s3)}
+.nav-cta{display:none}
+/* 6. HERO */
+.hero{padding-top:calc(var(--nav-h) + 2.5rem);padding-bottom:3rem;min-height:min(100svh,900px);display:flex;align-items:center;position:relative}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 80% 20%,rgba(198,167,106,.13),transparent 70%);pointer-events:none}
+.hero-grid{display:grid;gap:2.5rem;position:relative}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.3rem,9vw,5rem);line-height:1.04;letter-spacing:-.02em;margin-bottom:var(--s3)}
+.hero p.sub{color:var(--grey);max-width:56ch;margin-bottom:var(--s3)}
+.cta-row{display:flex;flex-direction:column;gap:.8rem;margin-bottom:var(--s4)}
+.facts{display:grid;gap:.9rem;padding-top:var(--s3);border-top:1px solid var(--line);list-style:none;margin:0;padding-left:0}
+.facts li{display:flex;align-items:center;gap:.7rem;font-size:.92rem}
+.facts b{color:var(--gold);font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(198,167,106,.18)}
+.hero-art{justify-self:center;width:min(100%,380px)}
+.scroll-ind{display:none;position:absolute;left:50%;bottom:1rem;font-size:.7rem;letter-spacing:.2em;color:var(--grey);text-transform:uppercase}
+/* 7. SECTIONS */
+.about-grid{display:grid;gap:2.5rem;margin-top:var(--s4)}
+.principles{display:grid;gap:var(--s3);margin-top:var(--s3)}
+.principle{padding-top:var(--s2);border-top:1px solid var(--line)}
+.principle h3{font-family:var(--display);font-weight:400;font-size:1.25rem;margin-bottom:.3rem}
+.principle p{color:var(--grey);font-size:.95rem}
+.panel{background:var(--charcoal);border:1px solid var(--line);border-radius:20px;padding:var(--s3);align-self:start}
+.panel dl{margin:0;display:grid;gap:1.1rem}
+.panel dt{color:var(--gold);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase}
+.panel dd{margin:.15rem 0 0}
+/* 8. SKILLS & PROJECTS */
+.filters{display:flex;gap:.6rem;overflow-x:auto;padding:var(--s3) 0 .4rem;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:44px;padding:0 1.1rem;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--grey);font:500 .88rem var(--sans);cursor:pointer;transition:.2s}
+.chip[aria-pressed=true]{background:var(--gold);color:var(--obsidian);border-color:var(--gold)}
+.skill-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));margin-top:var(--s2)}
+.skill{background:var(--charcoal);border:1px solid var(--line);border-radius:18px;padding:1.4rem;transition:border-color .3s,transform .3s}
+.skill:hover,.skill:focus-within{border-color:rgba(198,167,106,.5);transform:translateY(-3px)}
+.skill[hidden]{display:none}
+.skill svg{width:36px;height:36px;color:var(--gold);margin-bottom:1rem}
+.skill h3{font-size:1.05rem;font-weight:600}
+.skill small{color:var(--gold);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.skill p{color:var(--grey);font-size:.9rem;margin-top:.4rem}
+.proj-grid{display:grid;gap:var(--s3);margin-top:var(--s4)}
+.proj{background:var(--charcoal);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
+.proj:hover{border-color:rgba(198,167,106,.45);transform:translateY(-4px)}
+.proj .art{aspect-ratio:16/10;background:#0c0e12;border-bottom:1px solid var(--line)}
+.proj .art svg{width:100%;height:100%}
+.proj .body{padding:1.4rem;display:flex;flex-direction:column;gap:.8rem;flex:1}
+.badge{align-self:flex-start;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(198,167,106,.4);border-radius:999px;padding:.2rem .7rem}
+.proj h3{font-family:var(--display);font-weight:400;font-size:1.4rem;line-height:1.2}
+.proj p{color:var(--grey);font-size:.94rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;margin:0;padding:0}
+.tags li{font-size:.76rem;color:var(--ivory);background:rgba(255,255,255,.06);padding:.25rem .65rem;border-radius:999px}
+.proj .acts{margin-top:auto;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;color:var(--grey);font-size:.88rem}
+.collab{margin-top:var(--s4);text-align:center;color:var(--grey)}
+.collab a{color:var(--gold);border-bottom:1px solid var(--gold)}
+/* Experience */
+.exp-grid{display:grid;gap:2.5rem;margin-top:var(--s4)}
+.big{font-family:var(--display);font-weight:300;font-size:clamp(3.5rem,14vw,7rem);line-height:1;color:var(--gold)}
+.timeline{list-style:none;margin:0;padding:0 0 0 1.4rem;border-left:1px solid var(--line)}
+.timeline li{position:relative;padding:0 0 1.8rem 1rem}
+.timeline li::before{content:"";position:absolute;left:calc(-1.4rem - 4.5px);top:.55rem;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.timeline h3{font-size:1.05rem;font-weight:600}
+.timeline p{color:var(--grey);font-size:.92rem}
+.note{color:var(--grey);font-size:.82rem;margin-top:var(--s2);font-style:italic}
+/* Philosophy */
+.philo{background:var(--charcoal);border-block:1px solid var(--line)}
+.philo-grid{display:grid;gap:var(--s4);margin-top:var(--s4)}
+.philo article{border-top:1px solid var(--gold);padding-top:1.2rem}
+.philo .no{font-family:var(--display);font-size:2.6rem;color:var(--gold);font-weight:300;line-height:1}
+.philo h3{font-family:var(--display);font-weight:300;font-size:1.7rem;margin:.6rem 0 .4rem}
+.philo p{color:var(--grey)}
+/* 9. CONTACT */
+.contact-grid{display:grid;gap:var(--s4);margin-top:var(--s4)}
+.clist{list-style:none;margin:0;padding:0;display:grid;gap:1.2rem}
+.clist span{display:block;color:var(--gold);font-size:.74rem;letter-spacing:.15em;text-transform:uppercase}
+.clist a,.clist b{font-weight:500;overflow-wrap:anywhere}
+.clist a:hover{color:var(--gold)}
+form{background:var(--charcoal);border:1px solid var(--line);border-radius:22px;padding:var(--s3);display:grid;gap:1.1rem}
+label{font-size:.88rem;font-weight:500;display:block;margin-bottom:.35rem}
+input,select,textarea{width:100%;min-height:48px;background:var(--obsidian);color:var(--ivory);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem;font:inherit;font-size:1rem}
+textarea{min-height:140px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,167,106,.2)}
+[aria-invalid=true]{border-color:#e07a6a}
+.err{color:#f0907f;font-size:.82rem;min-height:1.1em;margin-top:.3rem}
+.form-actions{display:flex;flex-direction:column;gap:.7rem}
+.status{font-size:.9rem;color:var(--gold);min-height:1.4em}
+/* Footer */
+footer{border-top:1px solid var(--line);padding-block:var(--s4) 2rem}
+.foot{display:grid;gap:var(--s3)}
+.foot nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
+.foot nav a{color:var(--grey);min-height:44px;display:inline-flex;align-items:center}
+.foot nav a:hover{color:var(--gold)}
+.copy{color:var(--grey);font-size:.82rem;margin-top:var(--s3)}
+.totop{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:rgba(17,19,24,.92);color:var(--gold);cursor:pointer;z-index:40;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.totop.show{opacity:1;visibility:visible}
+.glow{position:fixed;width:280px;height:280px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(198,167,106,.09),transparent 65%);transform:translate(-50%,-50%);z-index:1;display:none}
+/* Reveal (only active when JS adds .js) */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.js .rv.in{opacity:1;transform:none}
+@keyframes float{50%{transform:translateY(-8px)}}
+.float{animation:float 7s ease-in-out infinite}
+/* 10. RESPONSIVE */
+@media (min-width:600px){
+  .cta-row{flex-direction:row}
+  .principles{grid-template-columns:repeat(3,1fr)}
+  .form-actions{flex-direction:row}
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .philo-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:900px){
+  :root{--pad:2rem;--nav-h:76px}
+  .links{display:flex}.menu-btn,.drawer{display:none}.nav-cta{display:inline-flex;min-height:44px}
+  .hero-grid{grid-template-columns:1.25fr .75fr;align-items:center;gap:4rem}
+  .scroll-ind{display:block;transform:translateX(-50%)}
+  .about-grid{grid-template-columns:1.3fr .7fr;gap:4rem}
+  .exp-grid{grid-template-columns:.8fr 1.2fr;gap:4rem}
+  .contact-grid{grid-template-columns:.8fr 1.2fr;gap:4rem}
+  .foot{grid-template-columns:1fr auto;align-items:end}
+  @media (pointer:fine){.glow{display:block}}
+}
+@media (min-width:1100px){.proj-grid{gap:2rem}}
+/* 11. REDUCED MOTION */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<!-- 12. PAGE MARKUP -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#home" class="brand" aria-label="Musaib Manzoor, home"><span class="mono">MM.</span><span class="n">Musaib Manzoor</span></a>
+    <ul class="links" id="links">
+      <li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li><li><a href="#experience">Experience</a></li><li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-gold nav-cta">Let’s Talk</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><span></span></button>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-label="Mobile navigation">
+  <a class="dl" href="#home">Home</a><a class="dl" href="#about">About</a><a class="dl" href="#skills">Skills</a>
+  <a class="dl" href="#projects">Projects</a><a class="dl" href="#experience">Experience</a><a class="dl" href="#contact">Contact</a>
+  <a class="btn btn-gold" href="#contact">Let’s Talk</a>
+</div>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home" aria-labelledby="h1">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Independent developer · Baramulla, India</p>
+      <h1 id="h1">Building digital experiences that feel <span class="gold">different.</span></h1>
+      <p class="sub">I’m Musaib Manzoor, a developer focused on crafting elegant, responsive, and thoughtful digital experiences through modern frontend technologies and powerful backend systems.</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn btn-gold">Explore My Work</a>
+        <a href="#contact" class="btn btn-ghost">Let’s Talk</a>
+      </div>
+      <ul class="facts">
+        <li><b>6+</b> Years of Experience</li>
+        <li><b>Full</b> Frontend &amp; Backend Development</li>
+        <li><span class="dot" aria-hidden="true"></span> Available for selected projects</li>
+      </ul>
+    </div>
+    <!-- Monogram + code composition -->
+    <div class="hero-art float">
+      <svg viewBox="0 0 380 400" role="img" aria-label="Abstract MM monogram within a framed code composition">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C6A76A"/><stop offset="1" stop-color="#8a733f"/></linearGradient></defs>
+        <rect x="20" y="20" width="340" height="360" rx="28" fill="#111318" stroke="rgba(255,255,255,.1)"/>
+        <circle cx="52" cy="52" r="5" fill="#C6A76A"/><circle cx="72" cy="52" r="5" fill="#92949B" opacity=".5"/><circle cx="92" cy="52" r="5" fill="#92949B" opacity=".3"/>
+        <line x1="20" y1="76" x2="360" y2="76" stroke="rgba(255,255,255,.1)"/>
+        <text x="190" y="210" text-anchor="middle" font-family="Georgia,serif" font-size="120" fill="url(#g)" font-weight="300">MM.</text>
+        <g fill="#92949B" font-family="monospace" font-size="13">
+          <text x="44" y="262">const developer = {</text>
+          <text x="64" y="284" fill="#C6A76A">craft: "intentional",</text>
+          <text x="64" y="306">stack: "full",</text>
+          <text x="44" y="328">};</text>
+        </g>
+        <line x1="44" y1="350" x2="316" y2="350" stroke="#C6A76A" opacity=".4"/>
+      </svg>
+    </div>
+  </div>
+  <span class="scroll-ind" aria-hidden="true">Scroll</span>
+</section>
+
+<!-- ABOUT -->
+<section id="about" aria-labelledby="aboutH">
+  <div class="wrap">
+    <p class="eyebrow rv">A little about me</p>
+    <h2 class="h2 rv" id="aboutH">Thoughtful code. <span class="gold">Intentional</span> design.</h2>
+    <div class="about-grid">
+      <div class="rv">
+        <p class="lead">I build interfaces that are responsive, considered, and clear, from the first layout to the last detail. My work spans interactive data visualizations with D3.js, component-driven frontends in React and Angular, and backend systems with Node.js, Express.js, MongoDB and SQL, so an idea can be carried from screen to server by one person.</p>
+        <div class="principles">
+          <div class="principle"><h3>Design with Purpose</h3><p>Every element earns its place and serves the person using it.</p></div>
+          <div class="principle"><h3>Engineering with Precision</h3><p>Clean, maintainable code that behaves as expected.</p></div>
+          <div class="principle"><h3>Performance by Default</h3><p>Fast, lightweight pages that stay practical on mobile.</p></div>
+        </div>
+      </div>
+      <aside class="panel rv" aria-label="Quick information">
+        <dl>
+          <div><dt>Name</dt><dd>Musaib Manzoor</dd></div>
+          <div><dt>Location</dt><dd>Baramulla, Jammu &amp; Kashmir</dd></div>
+          <div><dt>Experience</dt><dd>6+ years</dd></div>
+          <div><dt>Focus</dt><dd>Full-stack web development</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" aria-labelledby="skillsH">
+  <div class="wrap">
+    <p class="eyebrow rv">Technical skills</p>
+    <h2 class="h2 rv" id="skillsH">The tools I build with.</h2>
+    <div class="filters" id="filters" role="group" aria-label="Filter skills by category"></div>
+    <div class="skill-grid" id="skillGrid"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" aria-labelledby="projH">
+  <div class="wrap">
+    <p class="eyebrow rv">Selected projects</p>
+    <h2 class="h2 rv" id="projH">Concepts shaped like real work.</h2>
+    <p class="lead rv" style="margin-top:1rem">These four are concept projects that show the kind of work I build. Each will be replaced with a real case study.</p>
+    <div class="proj-grid" id="projGrid"></div>
+    <p class="collab rv">Have a project in mind? <a href="#contact">Let’s explore working together.</a></p>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" aria-labelledby="expH">
+  <div class="wrap">
+    <p class="eyebrow rv">Professional journey</p>
+    <h2 class="h2 rv" id="expH">Years spent on the craft.</h2>
+    <div class="exp-grid">
+      <div class="rv"><div class="big">6+</div><p class="lead">Years of Experience</p></div>
+      <div class="rv">
+        <ul class="timeline">
+          <li><h3>Frontend Development</h3><p>HTML5, CSS3, JavaScript, React, Angular and Tailwind CSS.</p></li>
+          <li><h3>Responsive Interfaces</h3><p>Layouts that adapt cleanly from small phones to large displays.</p></li>
+          <li><h3>Interactive Data Visualization</h3><p>Charts and visual explainers built with D3.js.</p></li>
+          <li><h3>Backend Development</h3><p>APIs and services with Node.js and Express.js.</p></li>
+          <li><h3>Database Integration</h3><p>Working with MongoDB and SQL data layers.</p></li>
+        </ul>
+        <!-- EDIT: replace with verified roles, organisations and dates when ready -->
+        <p class="note">Detailed roles and dates can be added here once verified.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philo" aria-labelledby="philoH">
+  <div class="wrap">
+    <p class="eyebrow rv">Development philosophy</p>
+    <h2 class="h2 rv" id="philoH">How I decide what to build.</h2>
+    <div class="philo-grid">
+      <article class="rv"><div class="no">01</div><h3>User First</h3><p>Every interface should be intuitive, accessible, and responsive.</p></article>
+      <article class="rv"><div class="no">02</div><h3>Performance Matters</h3><p>Build efficient experiences that remain practical on mobile devices.</p></article>
+      <article class="rv"><div class="no">03</div><h3>Details Define Quality</h3><p>Typography, spacing, motion, and consistency make the difference.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" aria-labelledby="contactH">
+  <div class="wrap">
+    <p class="eyebrow rv">Contact</p>
+    <h2 class="h2 rv" id="contactH">Have something worth building?</h2>
+    <p class="lead rv" style="margin-top:1rem">Let’s turn a good idea into a thoughtful digital experience.</p>
+    <div class="contact-grid">
+      <ul class="clist rv">
+        <li><span>Email</span><a id="cEmail" href="#"></a></li>
+        <li><span>Phone</span><a id="cPhone" href="#"></a></li>
+        <li><span>Location</span><b id="cLoc"></b></li>
+        <li><span>GitHub</span><a id="cGit" href="#" target="_blank" rel="noopener noreferrer"></a></li>
+        <li><span>LinkedIn</span><a id="cLin" href="#" target="_blank" rel="noopener noreferrer"></a></li>
+      </ul>
+      <form id="form" novalidate class="rv" aria-label="Project inquiry form">
+        <div><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required aria-describedby="e-name"><div class="err" id="e-name" role="alert"></div></div>
+        <div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email"><div class="err" id="e-email" role="alert"></div></div>
+        <div><label for="type">Project type</label>
+          <select id="type" name="type" required aria-describedby="e-type"><option value="">Select a type</option><option>Website or portfolio</option><option>Web application</option><option>Data visualization</option><option>Backend or API</option><option>Something else</option></select>
+          <div class="err" id="e-type" role="alert"></div></div>
+        <div><label for="msg">Message</label><textarea id="msg" name="msg" required aria-describedby="e-msg"></textarea><div class="err" id="e-msg" role="alert"></div></div>
+        <div class="form-actions">
+          <button class="btn btn-gold" type="submit">Send Inquiry</button>
+          <button class="btn btn-ghost" type="button" id="copyBtn">Copy Email</button>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <p class="note" style="margin:0">This page has no server. Send Inquiry opens your email app with a prefilled message, which you then send yourself.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><div class="brand"><span class="mono">MM.</span><span class="n">Musaib Manzoor</span></div>
+        <p class="lead" style="margin-top:.6rem">Full-stack development, shaped with care.</p></div>
+      <nav aria-label="Footer links"><a id="fGit" href="#" target="_blank" rel="noopener noreferrer">GitHub</a><a id="fLin" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a><a id="fMail" href="#">Email</a></nav>
+    </div>
+    <p class="copy">© <span id="year"></span> Musaib Manzoor. Designed &amp; Developed with Intention.</p>
+  </div>
+</footer>
+<button class="totop" id="toTop" aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin:auto" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<script>
+/* 13. EDITABLE CONFIGURATION — update details here */
+const CONFIG = {
+  name: "Musaib Manzoor",
+  email: "devmusaidmanzoor@gmail.com",
+  phone: "+91 6005339428",
+  location: "Baramulla, Jammu & Kashmir, India",
+  github: "https://github.com/devmusa", githubLabel: "devmusa",
+  linkedin: "",              // PASTE your full LinkedIn profile URL here
+  linkedinLabel: "Sheikh Musaib",
+  projects: [                // add real "live" / "code" URLs to enable the buttons
+    {t:"Restaurant Management Dashboard",d:"Orders, tables and daily sales in one calm, readable dashboard.",tags:["React","Node.js","MongoDB"],live:"",code:"",art:"dash"},
+    {t:"Modern E-Commerce Experience",d:"A fast storefront with clear product browsing and a simple checkout flow.",tags:["Angular","Express.js","SQL"],live:"",code:"",art:"shop"},
+    {t:"Interactive Data Visualization",d:"Explorable charts that turn raw numbers into a story.",tags:["D3.js","JavaScript","CSS3"],live:"",code:"",art:"chart"},
+    {t:"Personal Portfolio & Digital Identity",d:"A responsive, single-page personal site with a considered visual identity.",tags:["HTML5","CSS3","JavaScript"],live:"",code:"",art:"id"}
+  ]
+};
+
+/* Skill data */
+const I = {
+  code:'<path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/>',
+  layers:'<path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/>',
+  chart:'<path d="M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-8"/>',
+  server:'<rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/>',
+  db:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'
+};
+const SKILLS = [
+ ["HTML5","Frontend","code","Semantic, accessible page structure."],
+ ["CSS3","Frontend","layers","Responsive layouts, typography and motion."],
+ ["JavaScript","Frontend","code","Interactive behaviour without heavy dependencies."],
+ ["Tailwind CSS","Frontend","layers","Utility-first styling for consistent interfaces."],
+ ["React","Frontend","code","Component-based user interfaces."],
+ ["Angular","Frontend","code","Structured applications for larger frontends."],
+ ["D3.js","Data Visualization","chart","Custom, interactive data-driven graphics."],
+ ["Node.js","Backend","server","JavaScript runtime for services and tooling."],
+ ["Express.js","Backend","server","Lightweight APIs and server routes."],
+ ["MongoDB","Databases","db","Flexible document storage."],
+ ["SQL","Databases","db","Relational data modelling and queries."]
+];
+
+/* 14. HELPERS */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+document.documentElement.classList.add("js");
+
+/* Fill contact details from CONFIG */
+(function fillContact(){
+  const mail="mailto:"+CONFIG.email, tel="tel:"+CONFIG.phone.replace(/\s/g,"");
+  $("#cEmail").href=mail; $("#cEmail").textContent=CONFIG.email;
+  $("#cPhone").href=tel; $("#cPhone").textContent=CONFIG.phone;
+  $("#cLoc").textContent=CONFIG.location;
+  $("#cGit").href=CONFIG.github; $("#cGit").textContent=CONFIG.githubLabel; $("#fGit").href=CONFIG.github;
+  $("#fMail").href=mail;
+  const hasLin=/^https?:\/\//.test(CONFIG.linkedin);
+  [$("#cLin"),$("#fLin")].forEach(a=>{
+    if(hasLin){a.href=CONFIG.linkedin}else{a.removeAttribute("href");a.removeAttribute("target");a.setAttribute("aria-disabled","true");a.title="LinkedIn URL not configured yet"}
+  });
+  $("#cLin").textContent=CONFIG.linkedinLabel+(hasLin?"":" (link coming soon)");
+  $("#year").textContent=new Date().getFullYear();
+})();
+
+/* Skills + filters */
+(function skills(){
+  const cats=["All",...new Set(SKILLS.map(s=>s[1]))], f=$("#filters"), g=$("#skillGrid");
+  g.innerHTML=SKILLS.map(s=>`<article class="skill rv" data-cat="${s[1]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[s[2]]}</svg><small>${s[1]}</small><h3>${s[0]}</h3><p>${s[3]}</p></article>`).join("");
+  f.innerHTML=cats.map((c,i)=>`<button class="chip" type="button" aria-pressed="${i===0}" data-c="${c}">${c}</button>`).join("");
+  f.addEventListener("click",e=>{
+    const b=e.target.closest(".chip"); if(!b) return;
+    $$(".chip",f).forEach(x=>x.setAttribute("aria-pressed",x===b));
+    $$(".skill",g).forEach(k=>{k.hidden=!(b.dataset.c==="All"||k.dataset.cat===b.dataset.c)});
+  });
+})();
+
+/* Projects (preview art is inline SVG) */
+(function projects(){
+  const bg='<rect width="320" height="200" fill="#0c0e12"/>', gd="#C6A76A", gr="#92949B";
+  const art={
+   dash:bg+`<rect x="20" y="20" width="60" height="160" rx="8" fill="#111318" stroke="#ffffff1a"/><rect x="95" y="20" width="60" height="40" rx="8" fill="#111318" stroke="#ffffff1a"/><rect x="165" y="20" width="60" height="40" rx="8" fill="#111318" stroke="#ffffff1a"/><rect x="235" y="20" width="65" height="40" rx="8" fill="${gd}" opacity=".85"/><rect x="95" y="75" width="205" height="105" rx="8" fill="#111318" stroke="#ffffff1a"/><path d="M110 160l30-35 30 15 35-45 35 20 40-30" fill="none" stroke="${gd}" stroke-width="2"/>`,
+   shop:bg+`<rect x="20" y="20" width="85" height="110" rx="8" fill="#111318" stroke="#ffffff1a"/><rect x="117" y="20" width="85" height="110" rx="8" fill="#111318" stroke="#ffffff1a"/><rect x="214" y="20" width="85" height="110" rx="8" fill="#111318" stroke="#ffffff1a"/><circle cx="62" cy="65" r="22" fill="${gd}" opacity=".8"/><rect x="135" y="45" width="50" height="40" rx="4" fill="${gr}" opacity=".4"/><path d="M236 85l20-35 20 35z" fill="${gd}" opacity=".5"/><rect x="20" y="145" width="120" height="12" rx="6" fill="${gr}" opacity=".4"/><rect x="20" y="165" width="70" height="12" rx="6" fill="${gd}"/>`,
+   chart:bg+[40,80,60,110,90,140,120].map((h,i)=>`<rect x="${30+i*38}" y="${180-h}" width="22" height="${h}" rx="4" fill="${i===5?gd:"#ffffff1f"}"/>`).join("")+`<circle cx="260" cy="50" r="28" fill="none" stroke="${gr}" stroke-width="8" opacity=".5"/><path d="M260 22a28 28 0 0 1 26 38" fill="none" stroke="${gd}" stroke-width="8"/>`,
+   id:bg+`<text x="160" y="125" text-anchor="middle" font-family="Georgia,serif" font-size="84" fill="${gd}" font-weight="300">MM.</text><line x1="90" y1="148" x2="230" y2="148" stroke="${gd}" opacity=".5"/><rect x="120" y="160" width="80" height="6" rx="3" fill="${gr}" opacity=".4"/>`
+  };
+  $("#projGrid").innerHTML=CONFIG.projects.map(p=>{
+    const a=(u,l,pri)=>u?`<a class="btn ${pri?"btn-gold":"btn-ghost"}" style="min-height:44px;padding:0 1.2rem" href="${u}" target="_blank" rel="noopener noreferrer">${l}</a>`:"";
+    const acts=(p.live||p.code)?a(p.live,"View Project",1)+a(p.code,"View Code",0):"<span>Case study coming soon</span>";
+    return `<article class="proj rv"><div class="art"><svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Abstract preview of ${p.t.replace(/&/g,"and")}">${art[p.art]}</svg></div><div class="body"><span class="badge">Concept Project</span><h3>${p.t.replace(/&/g,"&amp;")}</h3><p>${p.d}</p><ul class="tags">${p.tags.map(t=>`<li>${t}</li>`).join("")}</ul><div class="acts">${acts}</div></div></article>`;
+  }).join("");
+})();
+
+/* Navigation: scroll state, mobile drawer, active link */
+(function nav(){
+  const n=$("#nav"), b=$("#menuBtn"), d=$("#drawer"), top=$("#toTop");
+  const set=o=>{d.classList.toggle("open",o);b.setAttribute("aria-expanded",o);b.setAttribute("aria-label",o?"Close menu":"Open menu");document.body.style.overflow=o?"hidden":""};
+  b.addEventListener("click",()=>set(!d.classList.contains("open")));
+  $$("a",d).forEach(a=>a.addEventListener("click",()=>set(false)));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&d.classList.contains("open")){set(false);b.focus()}});
+  addEventListener("resize",()=>{if(innerWidth>=900)set(false)});
+  const onScroll=()=>{n.classList.toggle("scrolled",scrollY>20);top.classList.toggle("show",scrollY>700)};
+  addEventListener("scroll",onScroll,{passive:true});onScroll();
+  top.addEventListener("click",()=>scrollTo({top:0}));
+  const links=$$("#links a");
+  if("IntersectionObserver" in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle("active",l.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
+    $$("main > section[id]").forEach(s=>io.observe(s));
+  }
+})();
+
+/* Reveal on scroll (content stays visible if IntersectionObserver is missing) */
+(function reveal(){
+  const els=$$(".rv");
+  if(!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("in"));return}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+  els.forEach(e=>io.observe(e));
+})();
+
+/* Soft cursor glow on fine pointers */
+(function glow(){
+  if(!matchMedia("(pointer:fine)").matches||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+  const g=$("#glow");let x=0,y=0,t=false;
+  addEventListener("pointermove",e=>{x=e.clientX;y=e.clientY;if(!t){t=true;requestAnimationFrame(()=>{g.style.left=x+"px";g.style.top=y+"px";t=false})}},{passive:true});
+})();
+
+/* 15. FORM VALIDATION + MAILTO WORKFLOW */
+(function form(){
+  const f=$("#form"), st=$("#status");
+  const rules={
+    name:v=>v.trim().length<2?"Enter your full name.":"",
+    email:v=>!v.trim()?"Enter your email address.":(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())?"Enter a valid email, like name@example.com.":""),
+    type:v=>!v?"Choose a project type.":"",
+    msg:v=>v.trim().length<10?"Write a message of at least 10 characters.":""
+  };
+  const check=k=>{const el=f.elements[k],m=rules[k](el.value);$("#e-"+k).textContent=m;el.setAttribute("aria-invalid",!!m);return !m};
+  Object.keys(rules).forEach(k=>f.elements[k].addEventListener("blur",()=>check(k)));
+  f.addEventListener("submit",e=>{
+    e.preventDefault();
+    const bad=Object.keys(rules).filter(k=>!check(k));
+    if(bad.length){st.textContent="Please fix the highlighted fields.";f.elements[bad[0]].focus();return}
+    const body=`Name: ${f.name.value}\nEmail: ${f.email.value}\nProject type: ${f.type.value}\n\n${f.msg.value}`;
+    st.textContent="Opening your email app. Send the message from there to complete your inquiry.";
+    location.href=`mailto:${CONFIG.email}?subject=${encodeURIComponent("Project inquiry: "+f.type.value)}&body=${encodeURIComponent(body)}`;
+  });
+  $("#copyBtn").addEventListener("click",async()=>{
+    try{await navigator.clipboard.writeText(CONFIG.email);st.textContent="Email copied: "+CONFIG.email}
+    catch{const t=document.createElement("textarea");t.value=CONFIG.email;document.body.appendChild(t);t.select();
+      try{document.execCommand("copy");st.textContent="Email copied: "+CONFIG.email}catch{st.textContent="Copy failed. Email: "+CONFIG.email}t.remove()}
+  });
+})();
+</script>
+</body>
+</html>
